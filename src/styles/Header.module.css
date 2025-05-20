@@ -1,0 +1,57 @@
+.headerWhite {
+  background-color: #ffffff;
+}
+
+.btnPesquisarPink {
+    background-color: #c92071;
+    border-color: #c92071;
+    color: white;
+  }
+  
+  .btnPesquisarPink:hover {
+    background-color: #b01b60;
+    border-color: #b01b60;
+    color: white;
+  }
+  
+  .navLink {
+    margin-right: 15px;
+    margin-left: 15px;
+    font-weight: 500;
+  }
+  
+  .bannerPrincipal {
+    background-color: #f5f5f5;
+  }
+  
+  .categoryItem {
+    background-color: #f9f8f6;
+    border-radius: 150px;
+    width: 104px;
+    height: 138px;
+    /* top e left normalmente requerem position absolute, cuidado */
+    top: 1380px;
+    left: 364px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px auto;
+    padding: 15px;
+  }
+  
+  .categoryItem img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  .productCard img {
+    object-fit: cover;
+    height: 200px;
+  }
+  
+  .productCard .cardBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }

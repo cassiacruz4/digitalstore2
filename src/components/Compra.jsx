@@ -16,6 +16,17 @@ import instagram from "../assets/imagens/icone_instagram.svg";
 import twitter from "../assets/imagens/icone_twitter.svg";
 
 const Compra = () => {
+
+  const [ papeteBgColor, setPapeteBgColor] = useState(null);
+
+  const miniColors = [
+    "#e2e3ff",
+    "#ffe8bc",
+    "#ffc0bc",
+    "#dec699",
+    "#e8dfcf",
+  ];
+
   const [selectedSize, setSelectedSize] = useState(null);
 
   const [selectedColor, setSelectedColor] = useState(null);
@@ -46,20 +57,20 @@ const Compra = () => {
                 <h5>Tênis Nike Revolution 6 Next Nature Masculino</h5>
               </div>
 
-              <div className={styles.papetedoseninha}>
+              <div className={styles.papetedoseninha} style={{ backgroundColor: papeteBgColor }}>
                 <h1 className={styles.esquerda}>&lt;</h1>
                 <img src={papete} className={styles.papetenis} alt="papete" />
                 <h1 className={styles.direita}>&gt;</h1>
               </div>
 
               <div className={styles.miniatura}>
-                {["mini1", "mini2", "mini3", "mini4", "mini5"].map(
-                  (alt, idx) => (
+                {miniColors.map((color, idx) => (
                     <img
                       key={idx}
                       src={papete}
-                      alt={alt}
+                      alt={`mini${idx + 1}`}
                       className={styles.minisapato}
+                      onClick={() => setPapeteBgColor(color)}
                     />
                   )
                 )}

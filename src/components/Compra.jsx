@@ -14,6 +14,7 @@ import logoBranca from "../assets/imagens/logo_branca.svg";
 import facebook from "../assets/imagens/icone_facebook.svg";
 import instagram from "../assets/imagens/icone_instagram.svg";
 import twitter from "../assets/imagens/icone_twitter.svg";
+import { useEffect } from "react";
 
 const Compra = () => {
 
@@ -30,6 +31,15 @@ const Compra = () => {
   const [selectedSize, setSelectedSize] = useState(null);
 
   const [selectedColor, setSelectedColor] = useState(null);
+
+  useEffect(() => {
+    console.log("Tamanho selecionado:", selectedSize);
+  }, [selectedSize]);
+
+  useEffect(() => {
+    console.log("Cor selecionada:", selectedColor);
+  }, [selectedColor]);
+
 
   return (
     <div className={styles.background}>

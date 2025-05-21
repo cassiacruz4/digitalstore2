@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/Compraestilo.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../assets/imagens/logo.svg";
@@ -16,6 +16,10 @@ import instagram from "../assets/imagens/icone_instagram.svg";
 import twitter from "../assets/imagens/icone_twitter.svg";
 
 const Compra = () => {
+  const [selectedSize, setSelectedSize] = useState(null);
+
+  const [selectedColor, setSelectedColor] = useState(null);
+
   return (
     <div className={styles.background}>
       <main>
@@ -125,7 +129,11 @@ const Compra = () => {
                   <h3 className={styles.tamanho}>Tamanho</h3>
                   <div className={styles.tamanhocaixa}>
                     {[39, 40, 41, 42, 43].map((tam) => (
-                      <h3 role="button" key={tam}>
+                      <h3
+                        key={tam}
+                        className={`${selectedSize == tam ? styles.ativo : ""}`}
+                        onClick={() => setSelectedSize(tam)}
+                      >
                         {tam}
                       </h3>
                     ))}
@@ -134,11 +142,17 @@ const Compra = () => {
                   <div className={styles.corbola}>
                     <h3 className={styles.eraprasercor}>Tamanho</h3>
                     {[bola1, bola2, bola3, bola4].map((img, idx) => (
-                      <span className={styles.bolafunc} key={idx}>
+                      <span
+                        key={idx}
+                        className={styles.bolafunc}
+                        onClick={() => setSelectedColor(idx)}
+                      >
                         <img
                           src={img}
-                          className={styles[`bola${idx + 1}`]}
                           alt={`bolinha${idx + 1}`}
+                          className={`${styles[`bola${idx + 1}`]} ${
+                            selectedColor === idx ? styles.bordaSelecionada : ""
+                          }`}
                         />
                       </span>
                     ))}

@@ -495,7 +495,7 @@ body {
   cursor: pointer;
   font-size: 14px;
   color: #474747;
-  transition: all 2s ease;
+  transition: all 0.3s ease;
   text-align: center;
   display: flex;
   align-items: center;
@@ -506,6 +506,12 @@ body {
   transition: all 0.3s ease;
   color: #ffffff;
   background-color: #c92071;
+}
+
+.ativo {
+  background-color: #c92071 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #c92071 !important;
 }
 
 .corbola {
@@ -555,6 +561,20 @@ body {
 .bola3:hover,
 .bola4:hover {
   border: 1px solid #c92071;
+  border-radius: 50%;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.bolaAtiva {
+  border: 1px solid #c92071 !important;
+  border-radius: 50% !important;
+  padding: 2px !important;
+  box-sizing: border-box !important;
+}
+
+.bordaSelecionada {
+  border: 2px solid #c92071;
   border-radius: 50%;
   padding: 2px;
   box-sizing: border-box;

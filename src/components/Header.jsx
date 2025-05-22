@@ -3,6 +3,7 @@ import styles from "../styles/Header.module.css";
 import logo from "../assets/imagens/logo.svg";
 import carrinho from "../assets/imagens/icone_carrinho.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -76,28 +77,30 @@ const Header = () => {
                 >
                   <ul className="navbar-nav">
                     <li className="nav-item">
-                      <a
+                      <Link
+
+                  
                         className="nav-link active"
                         aria-current="page"
-                        href="/"
+                        to = '/'
                       >
                         Home
-                      </a>
+                      </Link>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="#">
+                      <Link className="nav-link" to = '/Produtos'>
                         Produtos
-                      </a>
+                      </Link>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="#">
+                      <Link className="nav-link" to= '/Categorias'>
                         Categorias
-                      </a>
+                      </Link>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="#">
+                      <Link className="nav-link" to ='/Compra'>
                         Meus Pedidos
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>

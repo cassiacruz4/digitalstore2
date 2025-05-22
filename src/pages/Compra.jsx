@@ -15,6 +15,7 @@ import facebook from "../assets/imagens/icone_facebook.svg";
 import instagram from "../assets/imagens/icone_instagram.svg";
 import twitter from "../assets/imagens/icone_twitter.svg";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Compra = () => {
 
@@ -178,7 +179,7 @@ const Compra = () => {
                       </span>
                     ))}
                     <div className={styles.botaocompra}>
-                      <button className={styles.compra}>COMPRAR</button>
+                       <Link to='/Pagamento' className={styles.compra}>Comprar</Link>
                     </div>
                   </div>
                 </div>

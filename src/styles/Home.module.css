@@ -1,0 +1,133 @@
+/* Estilos Gerais */
+body {
+    font-family: 'Inter', sans-serif; 
+    background-color: #F9F8FE;
+}
+
+/* Cabeçalho */
+header .btn-pesquisar-pink {
+    background-color: #C92071;
+    border-color: #C92071;
+    color: white;
+}
+
+header .btn-pesquisar-pink:hover {
+    background-color: #b01b60;
+    border-color: #b01b60;
+    color: white;
+}
+
+header .navbar-nav .nav-link {
+    margin-right: 15px;
+    margin-left: 15px;
+    font-weight: 500;
+}
+
+/* Banner Principal */
+.banner-principal {
+    background-color: #F5F5F5; 
+}
+
+/* Coleções em Destaque - Categorias */
+.category-item {
+    background-color: #f9f8f6; 
+    border-radius: 150px;
+    width: 104px; 
+    height: 138px; 
+    top: 1380px;
+    left: 364px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px auto; 
+    padding: 15px;
+}
+
+.category-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; 
+}
+
+/* Produtos em Alta */
+.product-card img {
+    object-fit: cover; 
+    height: 200px; 
+}
+
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Rodapé */
+footer a:hover {
+    text-decoration: underline 
+}
+
+/* Responsividade */
+@media (max-width: 767.98px) {
+    header .navbar-nav {
+        width: 100%;
+        text-align: center;
+    }
+    header .navbar-nav .nav-item {
+        margin-bottom: 10px;
+    }
+    .banner-principal h2 {
+        font-size: 2rem;
+    }
+    .banner-principal h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Adicionando cores e estilos ao banner */
+.banner-title { color: #F6AA1C; align-items:flex-start}
+.banner-subtitle { color: #555555; align-items: flex-start;}
+.banner-text { color: #777777; align-items: flex-start;}
+
+
+/* Adicionando os estilos do botão de off */
+.destaque-off {
+  width: 96px;
+  height: 32px; 
+  top: 1005px; 
+  left: 130px;
+  border-radius: 29px;
+  gap: 10px;
+  background-color: #E7FF86;
+  color: #474747;
+  padding: 5px 15px 5px 15px; 
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0.75px;
+}
+
+/* Adicionando os estilos do botão de comprar */
+.botao-comprar {
+  width: 153px; 
+  height: 48px;
+  top: 1139px;
+  left: 130px; 
+  background-color: #f5f5f5;
+  color: #C92071;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  rotate: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.75px;
+  text-align: center;
+  
+}
+
+.botao-comprar:hover {
+  background-color: #fcd3ea;
+  color: #C92071;
+}

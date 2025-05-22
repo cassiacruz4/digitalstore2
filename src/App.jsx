@@ -11,15 +11,13 @@ function App() {
 
   return (
     <>
-    <UserProvider>
-      <BrowserRouter>
-      <Header/>
-      <AppRoutes/>
-      <Footer/>
-      
-      </BrowserRouter>
-
-    </UserProvider>
+      <UserProvider>
+        <BrowserRouter>
+          <Header />
+          <AppRoutes />
+          <Footer />
+        </BrowserRouter>
+      </UserProvider>
     </>
   );
 }

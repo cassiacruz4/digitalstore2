@@ -1,11 +1,10 @@
 import React from "react";
 import styles from "../styles/Header.module.css";
 import logo from "../assets/imagens/logo.svg";
-import carrinho from "../assets/imagens/icone_carrinho.svg";
+import Buy from "../assets/images/Buy.png";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ cartCount }) => {
   return (
     <div className={styles.background}>
       <header className={`container-fluid p-3 ${styles.headerWhite}`}>
@@ -48,12 +47,14 @@ const Header = () => {
               <a href="#" className="text-decoration-none text-dark">
                 Entrar
               </a>
-              <a
-                href="Compra.html"
-                className="text-decoration-none text-dark ms-3"
+              <div
+                className={`${styles.cartContainer} d-inline-block position-relative ms-3`}
               >
-                <img src={carrinho} alt="Carrinho" width="24" />
-              </a>
+                <img src={Buy} alt="Carrinho" width="24" />
+                {cartCount > 0 && (
+                  <span className={styles.cartCount}>{cartCount}</span>
+                )}
+              </div>
             </div>
           </div>
 
@@ -77,30 +78,28 @@ const Header = () => {
                 >
                   <ul className="navbar-nav">
                     <li className="nav-item">
-                      <Link
-
-                  
+                      <a
                         className="nav-link active"
                         aria-current="page"
-                        to = '/'
+                        href="/"
                       >
                         Home
-                      </Link>
+                      </a>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to = '/Produtos'>
+                      <a className="nav-link" href="#">
                         Produtos
-                      </Link>
+                      </a>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to= '/Categorias'>
+                      <a className="nav-link" href="#">
                         Categorias
-                      </Link>
+                      </a>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to ='/Compra'>
+                      <a className="nav-link" href="#">
                         Meus Pedidos
-                      </Link>
+                      </a>
                     </li>
                   </ul>
                 </div>

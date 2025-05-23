@@ -3,6 +3,7 @@ import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { UserProvider } from "./contexts/UserContexts";
+import { CartProvider } from "./contexts/CartContext";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes";
 
@@ -12,11 +13,13 @@ function App() {
   return (
     <>
       <UserProvider>
-        <BrowserRouter>
-          <Header />
-          <AppRoutes />
-          <Footer />
-        </BrowserRouter>
+        <CartProvider>
+          <BrowserRouter>
+            <Header />
+            <AppRoutes />
+            <Footer />
+          </BrowserRouter>
+        </CartProvider>
       </UserProvider>
     </>
   );

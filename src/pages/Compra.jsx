@@ -15,7 +15,9 @@ import facebook from "../assets/imagens/icone_facebook.svg";
 import instagram from "../assets/imagens/icone_instagram.svg";
 import twitter from "../assets/imagens/icone_twitter.svg";
 import { useEffect } from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { useCart } from "../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const Compra = ({ onAddToCart }) => {
   const [papeteBgColor, setPapeteBgColor] = useState(null);
@@ -25,6 +27,10 @@ const Compra = ({ onAddToCart }) => {
   const [selectedSize, setSelectedSize] = useState(null);
 
   const [selectedColor, setSelectedColor] = useState(null);
+
+  const { addToCart } = useCart();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Tamanho selecionado:", selectedSize);
@@ -173,9 +179,30 @@ const Compra = ({ onAddToCart }) => {
                       </span>
                     ))}
                     <div className={styles.botaocompra}>
-                      <Link to='/Pagamento' className={styles.compra}>
+                      <button
+                        className={styles.compra}
+                        onClick={() => {
+                          if (selectedSize === null || selectedColor === null) {
+                            alert(
+                              "Por favor, selecione um tamanho e uma cor antes de comprar."
+                            );
+                            return;
+                          }
+
+                          const produto = {
+                            id: 1,
+                            nome: "Tênis Nike Revolution 6 Next Nature Masculino",
+                            preco: 219,
+                            tamanho: selectedSize,
+                            cor: selectedColor,
+                            imagem: papete,
+                          };
+
+                          addToCart(produto);
+                        }}
+                      >
                         COMPRAR
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>

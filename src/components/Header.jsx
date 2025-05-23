@@ -2,10 +2,14 @@ import React from "react";
 import styles from "../styles/Header.module.css";
 import logo from "../assets/imagens/logo.svg";
 import carrinho from "../assets/imagens/icone_carrinho.svg";
+import Buy from "../assets/imagens/Buy.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
+import { useCart } from "../contexts/CartContext";
 
 const Header = () => {
+  const { cartCount } = useCart();
+
   return (
     <div className={styles.background}>
       <header className={`container-fluid p-3 ${styles.headerWhite}`}>
@@ -48,12 +52,33 @@ const Header = () => {
               <a href="#" className="text-decoration-none text-dark">
                 Entrar
               </a>
-              <a
-                href="Compra.html"
-                className="text-decoration-none text-dark ms-3"
+              <Link
+                to="/Pagamento"
+                className="text-decoration-none text-dark ms-3 position-relative"
               >
-                <img src={carrinho} alt="Carrinho" width="24" />
-              </a>
+                <img src={Buy} alt="Carrinho" width="24" />
+                {cartCount > 0 && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: "-7px",
+                      right: "-8px",
+                      backgroundColor: "#ff3366",
+                      color: "#fff",
+                      borderRadius: "50%",
+                      padding: "5px",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                      lineHeight: "1",
+                      minWidth: "20px",
+                      textAlign: "center",
+                      display: "inline-block",
+                    }}
+                  >
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
             </div>
           </div>
 
@@ -78,27 +103,25 @@ const Header = () => {
                   <ul className="navbar-nav">
                     <li className="nav-item">
                       <Link
-
-                  
                         className="nav-link active"
                         aria-current="page"
-                        to = '/'
+                        to="/"
                       >
                         Home
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to = '/Produtos'>
+                      <Link className="nav-link" to="/Produtos">
                         Produtos
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to= '/Categorias'>
+                      <Link className="nav-link" to="/Categorias">
                         Categorias
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to ='/Compra'>
+                      <Link className="nav-link" to="/Compra">
                         Meus Pedidos
                       </Link>
                     </li>

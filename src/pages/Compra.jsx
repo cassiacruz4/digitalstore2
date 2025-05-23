@@ -16,22 +16,21 @@ import instagram from "../assets/imagens/icone_instagram.svg";
 import twitter from "../assets/imagens/icone_twitter.svg";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
-const Compra = () => {
+const Compra = ({ onAddToCart }) => {
+  const [papeteBgColor, setPapeteBgColor] = useState(null);
 
-  const [ papeteBgColor, setPapeteBgColor] = useState(null);
-
-  const miniColors = [
-    "#e2e3ff",
-    "#ffe8bc",
-    "#ffc0bc",
-    "#dec699",
-    "#e8dfcf",
-  ];
+  const miniColors = ["#e2e3ff", "#ffe8bc", "#ffc0bc", "#dec699", "#e8dfcf"];
 
   const [selectedSize, setSelectedSize] = useState(null);
 
   const [selectedColor, setSelectedColor] = useState(null);
+
+  const { addToCart } = useCart();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Tamanho selecionado:", selectedSize);
@@ -40,7 +39,6 @@ const Compra = () => {
   useEffect(() => {
     console.log("Cor selecionada:", selectedColor);
   }, [selectedColor]);
-
 
   return (
     <div className={styles.background}>
@@ -68,7 +66,10 @@ const Compra = () => {
                 <h5>Tênis Nike Revolution 6 Next Nature Masculino</h5>
               </div>
 
-              <div className={styles.papetedoseninha} style={{ backgroundColor: papeteBgColor }}>
+              <div
+                className={styles.papetedoseninha}
+                style={{ backgroundColor: papeteBgColor }}
+              >
                 <h1 className={styles.esquerda}>&lt;</h1>
                 <img src={papete} className={styles.papetenis} alt="papete" />
                 <h1 className={styles.direita}>&gt;</h1>
@@ -76,15 +77,14 @@ const Compra = () => {
 
               <div className={styles.miniatura}>
                 {miniColors.map((color, idx) => (
-                    <img
-                      key={idx}
-                      src={papete}
-                      alt={`mini${idx + 1}`}
-                      className={styles.minisapato}
-                      onClick={() => setPapeteBgColor(color)}
-                    />
-                  )
-                )}
+                  <img
+                    key={idx}
+                    src={papete}
+                    alt={`mini${idx + 1}`}
+                    className={styles.minisapato}
+                    onClick={() => setPapeteBgColor(color)}
+                  />
+                ))}
               </div>
 
               <div className={styles.iniciocatalogo}>
@@ -179,7 +179,30 @@ const Compra = () => {
                       </span>
                     ))}
                     <div className={styles.botaocompra}>
-                       <Link to='/Pagamento' className={styles.compra}>Comprar</Link>
+                      <button
+                        className={styles.compra}
+                        onClick={() => {
+                          if (selectedSize === null || selectedColor === null) {
+                            alert(
+                              "Por favor, selecione um tamanho e uma cor antes de comprar."
+                            );
+                            return;
+                          }
+
+                          const produto = {
+                            id: 1,
+                            nome: "Tênis Nike Revolution 6 Next Nature Masculino",
+                            preco: 219,
+                            tamanho: selectedSize,
+                            cor: selectedColor,
+                            imagem: papete,
+                          };
+
+                          addToCart(produto);
+                        }}
+                      >
+                        COMPRAR
+                      </button>
                     </div>
                   </div>
                 </div>

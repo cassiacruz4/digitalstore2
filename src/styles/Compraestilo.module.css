@@ -581,10 +581,11 @@ body {
 }
 
 .botaocompra {
-  margin-top: 18px;
+  margin-top: 30px;
 }
 
 .compra {
+  text-decoration-line: none;
   cursor: pointer;
   color: #f5f5f5;
   background-color: #ffb31f;
@@ -592,7 +593,7 @@ body {
   border-radius: 8px;
   height: 48px;
   width: 220px;
-  padding: 10px;
+  padding: 15px 50px;
 }
 
 .compra:hover {

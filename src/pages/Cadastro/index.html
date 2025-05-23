@@ -1,145 +1,290 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drip Store</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.071);
+        }
+        
+        .form-control {
+            height: 60px;
+            background-color: rgba(71, 71, 71, 0.066);
+            border-color: rgba(128, 128, 128, 0.027);
+        }
+        
+        .btn-primary {
+            background-color: rgba(246, 170, 28, 1);
+            border-color: rgba(246, 170, 28, 1);
+            border-radius: 8px;
+        }
+        
+        .btn-primary:hover {
+            background-color: rgba(246, 170, 28, 0.8);
+            border-color: rgba(246, 170, 28, 0.8);
+        }
+        
+        .total-price {
+            color: rgba(238, 66, 102, 1);
+        }
+        
+        .section-bg {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
-<!-- primeiro commit: Estrutura HTML -->
-
-<nav>
-
-</nav>
-
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <!-- Navbar content can be added here -->
+    </nav>
 
-<main>
+    <main class="container-fluid" style="margin-top: 90px;">
+        <div class="container">
+            <h2 class="mb-4 ps-2">Finalizar Compra</h2>
 
-    <h1 style="padding-left: 8px; margin-top: 90px;">Finalizar Compra</h1><br><br>
+            <div class="row">
+                <!-- Coluna Esquerda - Formulários -->
+                <div class="col-lg-8">
+                    <!-- Informações Pessoais -->
+                    <div class="section-bg">
+                        <h6 class="mb-3">Informações Pessoais</h6>
+                        <hr>
+                        
+                        <div class="mb-3">
+                            <label for="nome" class="form-label"><strong>Nome Completo*</strong></label>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Insira seu nome">
+                        </div>
 
-    <div style="padding-left: 25px;">
+                        <div class="mb-3">
+                            <label for="cpf" class="form-label"><strong>CPF*</strong></label>
+                            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Insira seu CPF">
+                        </div>
 
-        <h6>Informações Pessoais</h6><hr style="width: 680px;">
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><strong>E-mail*</strong></label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Insira seu email">
+                        </div>
 
-        <label for="nome"><strong>Nome Completo*</strong></label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066); padding: 8px;" placeholder="Insira seu nome" type="text" name="nome" id="nome"><br><br>
+                        <div class="mb-3">
+                            <label for="celular" class="form-label"><strong>Celular*</strong></label>
+                            <input type="text" class="form-control" id="celular" name="celular" placeholder="Insira seu celular">
+                        </div>
+                    </div>
 
-        <label for="cpf"><strong>CPF*</strong></label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066);padding: 8px;" placeholder="Insira seu CPF" type="text" name="cpf" id="cpf" ><br><br>
+                    <!-- Informações de Entrega -->
+                    <div class="section-bg">
+                        <h6 class="mb-3">Informações de Entrega</h6>
+                        <hr>
 
-        <label for="email"><strong>E-mail*</strong></label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066);padding: 8px;" placeholder="Insira seu email" type="email" name="email" id="email"><br><br>
+                        <div class="mb-3">
+                            <label for="endereco" class="form-label"><strong>Endereço*</strong></label>
+                            <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Insira seu endereço">
+                        </div>
 
-        <label for="celular"><strong>Celular*</strong></label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066);padding: 8px;" placeholder="Insira seu celular" type="text" name="celular" id="celular"><br><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="bairro" class="form-label"><strong>Bairro*</strong></label>
+                                    <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Insira seu bairro">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="cidade" class="form-label"><strong>Cidade*</strong></label>
+                                    <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Insira sua cidade">
+                                </div>
+                            </div>
+                        </div>
 
-    </div><br><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="cep" class="form-label"><strong>CEP*</strong></label>
+                                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Insira seu CEP">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="complemento" class="form-label"><strong>Complemento</strong></label>
+                                    <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Insira complemento">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    <section>
-    <div style="padding: 20px;">
+                    <!-- Informações de Pagamento -->
+                    <div class="section-bg">
+                        <h6 class="mb-3">Informações de Pagamento</h6>
+                        <hr>
 
-        <h2>Resumo</h2>
+                        <div class="mb-4">
+                            <p><strong>Forma de Pagamento</strong></p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="formaPagamento" id="cartao" value="cartao" checked>
+                                <label class="form-check-label" for="cartao">Cartão de Crédito</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="formaPagamento" id="boleto" value="boleto">
+                                <label class="form-check-label" for="boleto">Boleto Bancário</label>
+                            </div>
+                        </div>
 
-        <img src="" alt="">
-        <h4>Tênis Nike Revolution 6 Next Nature Masculino</h4>
+                        <div id="dadosCartao">
+                            <div class="mb-3">
+                                <label for="nomeCartao" class="form-label"><strong>Nome do Cartão*</strong></label>
+                                <input type="text" class="form-control" id="nomeCartao" name="nomeCartao" placeholder="Insira o nome do seu cartão">
+                            </div>
 
-        <div>        
-            <p>Subtotal:</p>
-            <p>R$ 219,00</p>
+                            <div class="mb-3">
+                                <label for="numeroCartao" class="form-label"><strong>Número do Cartão*</strong></label>
+                                <input type="text" class="form-control" id="numeroCartao" name="numeroCartao" placeholder="Insira o número do seu cartão">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="dataCartao" class="form-label"><strong>Data de Validade*</strong></label>
+                                        <input type="text" class="form-control" id="dataCartao" name="dataCartao" placeholder="MM/AA">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="cvv" class="form-label"><strong>CVV*</strong></label>
+                                        <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Finalizar Compra - Mobile -->
+                    <div class="section-bg d-lg-none">
+                        <h6 class="mb-3">Finalizar Compra</h6>
+                        <hr>
+                        
+                        <div class="text-center mb-3">
+                            <h5>Total</h5>
+                            <h2 class="total-price">R$ 219,00</h2>
+                            <p class="text-muted">ou 10x de R$ 21,00 sem juros</p>
+                        </div>
+
+                        <button type="button" class="btn btn-primary w-100" style="height: 50px;">
+                            Realizar Pagamento
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita - Resumo -->
+                <div class="col-lg-4">
+                    <div class="section-bg sticky-top" style="top: 110px;">
+                        <h5 class="mb-4">Resumo</h5>
+
+                        <div class="d-flex mb-4">
+                            <div class="me-3">
+                                <img src="TênisNikeRevolution.png" alt="Tênis Nike Air Force 1" 
+                                     class="img-fluid" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-2">Tênis Nike Air Force 1 '07</h6>
+                                <small class="text-muted">Branco/Vermelho</small>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal:</span>
+                            <span>R$ 219,00</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Frete:</span>
+                            <span class="text-success">R$ 0,00</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Desconto:</span>
+                            <span class="text-success">- R$ 30,00</span>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <h5>Total</h5>
+                            <h5 class="total-price">R$ 189,00</h5>
+                        </div>
+                        
+                        <p class="text-muted text-lg-end mb-4">ou 10x de R$ 18,90 sem juros</p>
+
+                        <button type="button" class="btn btn-primary w-100 d-none d-lg-block" style="height: 50px;">
+                            Realizar Pagamento
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
+    </main>
 
-        <div>        
-            <p>Frete:</p>
-            <p>R$ 0,00</p>
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <!-- Footer content -->
         </div>
+    </footer>
 
-        <div>
-            <p>Desconto:</p>
-            <p>R$ 30,00</p>
-        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Esconder/mostrar campos do cartão baseado na forma de pagamento
+        document.querySelectorAll('input[name="formaPagamento"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const dadosCartao = document.getElementById('dadosCartao');
+                if (this.value === 'cartao') {
+                    dadosCartao.style.display = 'block';
+                } else {
+                    dadosCartao.style.display = 'none';
+                }
+            });
+        });
 
-        <div>
-            <h2>Total</h2>
-            <h2>R$ 219,00</h2>
-            <p>ou 10x de R$ 21,00 sem juros</p>
-        </div>
+        // Máscaras para inputs
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            e.target.value = value;
+        });
 
-        <button style="background-color: rgba(246, 170, 28, 1); color: white; border-radius: 8px; border-color: white;width: 345px;height: 50px;">Realizar Pagamento</button>
+        document.getElementById('celular').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{2})(\d)/, '($1) $2');
+            value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            e.target.value = value;
+        });
 
-    </div>
-    </section>
+        document.getElementById('cep').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            e.target.value = value;
+        });
 
-<br><br>
+        document.getElementById('numeroCartao').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            e.target.value = value;
+        });
 
-    <div style="padding-left: 25px;">
-
-        <h6>Informações de Entrega</h6><hr style="width: 680px;">
-
-        <label for="endereço">Endereço*</label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066); padding: 8px;" placeholder="Insira seu endereço" type="text" name="endereço" id="endereço"><br><br>
-
-        <label for="bairro">Bairro*</label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066); padding: 8px;" placeholder="Insira seu bairro" type="text" name="bairro" id="bairro"><br><br>
-        
-        <label for="cidade">Cidade*</label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066); padding: 8px;" placeholder="Insira sua cidade" type="text" name="cidade" id="cidade"><br><br>   
-
-        <label for="cep">CEP*</label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066); padding: 8px;" placeholder="Insira seu CEP" type="text" name="cep" id="cep"><br><br>
-
-        <label for="complemento">Complemento*</label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066); padding: 8px;" placeholder="Insira complemento" type="text" name="complemento" id="complemento"><br><br>
-
-    </div><br><br>
-
-    <div style="padding-left: 25px;">
-
-        <h6>Informações de Pagamento</h6><hr style="width: 680px;">
-
-        <p><strong>Forma de Pagamento</strong></p>
-        <input type="radio">
-        <label for="opcao">Cartão de Crédito</label>
-        
-        <input type="radio">
-        <label for="opcao">Boleto Bancário</label><br><br>
-        
-        <label for="nome"><strong>Nome do Cartão*</strong></label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066); padding: 8px;" placeholder="Insira o nome do seu cartão" type="text" name="nome" id="nome"><br><br>
-
-        <label for="numero"><strong>Número do Cartão*</strong></label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066); padding: 8px;" placeholder="Insira o número do seu cartão" type="text" name="numero" id="numero"><br><br>
-        
-        <label for="data"></label><strong>Data do Cartão*</strong><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066); padding: 8px;" placeholder="Insira a validade do seu cartão" type="text" name="data" id="data"><br><br>
-        
-        <label for="cvv"><strong>CVV*</strong></label><br>
-        <input style="width: 680px; height: 60px; border-color: rgba(128, 128, 128, 0.027);background-color: rgba(71, 71, 71, 0.066); padding: 8px;" placeholder="CVV*" type="text" name="cvv" id="cvv"><br><br>    
-
-    </div><br><br>
-
-    <div style="padding-left: 25px; margin-bottom: 120px;">
-
-        <h6>Finalizar Compra</h6><hr style="width: 680px;">
-
-        <h5>Total</h5>
-
-        <div style="justify-content: flex-end; text-align: center;width: 1160px;">
-        <h2 style="color: rgba(238, 66, 102, 1); width: 1234px;">R$ 219,00</h2>
-        <p>ou 10x de R$ 21,00 sem juros</p>
-        </div>
-
-        <button style="background-color: rgba(246, 170, 28, 1); color: white; border-radius: 8px; border-color: white;width: 690px;height: 50px;">Realizar Pagamento</button>
-        
-    </div><br><br>
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+        document.getElementById('dataCartao').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{2})(\d)/, '$1/$2');
+            e.target.value = value;
+        });
+    </script>
 </body>
-
-<footer>
-
-</footer>
 
 </html>

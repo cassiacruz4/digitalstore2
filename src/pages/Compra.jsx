@@ -15,6 +15,7 @@ import facebook from "../assets/imagens/icone_facebook.svg";
 import instagram from "../assets/imagens/icone_instagram.svg";
 import twitter from "../assets/imagens/icone_twitter.svg";
 import { useEffect } from "react";
+import { Link } from "react-router-dom"
 
 const Compra = ({ onAddToCart }) => {
   const [papeteBgColor, setPapeteBgColor] = useState(null);
@@ -172,9 +173,9 @@ const Compra = ({ onAddToCart }) => {
                       </span>
                     ))}
                     <div className={styles.botaocompra}>
-                      <button className={styles.compra} onClick={onAddToCart}>
+                      <Link to='/Pagamento' className={styles.compra}>
                         COMPRAR
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

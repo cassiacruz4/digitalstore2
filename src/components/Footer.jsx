@@ -26,13 +26,13 @@ const Footer = () => {
               </p>
               <div>
                 <a href="#" className="text-white me-2">
-                  <img src={facebook} alt="Facebook" width="24" />
+                  <img src={facebook} alt="Facebook" className={styles.iconeSocial}/>
                 </a>
                 <a href="#" className="text-white me-2">
-                  <img src={instagram} alt="Instagram" width="24" />
+                  <img src={instagram} alt="Instagram" className={styles.iconeSocial}/>
                 </a>
                 <a href="#" className="text-white">
-                  <img src={twitter} alt="Twitter" width="24" />
+                  <img src={twitter} alt="Twitter" className={styles.iconeSocial} />
                 </a>
               </div>
             </div>

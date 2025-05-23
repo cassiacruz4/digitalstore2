@@ -61,7 +61,7 @@ const Header = () => {
                   <span
                     style={{
                       position: "absolute",
-                      top: "-6px",
+                      top: "-7px",
                       right: "-8px",
                       backgroundColor: "#ff3366",
                       color: "#fff",

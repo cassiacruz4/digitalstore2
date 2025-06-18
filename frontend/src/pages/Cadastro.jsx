@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styles from "./Cadastro.module.css";
+import styles from "../styles/Cadastro.module.css";
+
 
 export default function Cadastro() {
   const [formData, setFormData] = useState({

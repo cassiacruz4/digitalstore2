@@ -3,26 +3,31 @@ import mysql from "mysql2/promise";
 import cors from "cors";
 import dotenv from "dotenv";
 
+dotenv.config();
+
 const app = express();
 const PORT = 3000;
 
-// Configurações do app
 app.use(cors());
 app.use(express.json());
-dotenv.config();
 
-// Configuração do banco de dados
-const DB_CONFIG = {
+// === Banco 1: SAPATOS ===
+const poolSapatos = mysql.createPool({
   host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-};
+  user: process.env.DB_SAPATOS_USER,
+  password: process.env.DB_SAPATOS_PASSWORD,
+  database: process.env.DB_SAPATOS_DATABASE,
+});
 
-// Cria pool de conexões
-const pool = mysql.createPool(DB_CONFIG);
+// === Banco 2: USUÁRIOS ===
+const poolUsuarios = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USUARIOS_USER,
+  password: process.env.DB_USUARIOS_PASSWORD,
+  database: process.env.DB_USUARIOS_DATABASE,
+});
 
-// Verifica conexão e cria tabela se não existir
+// === Inicializa tabela sapatos ===
 async function initializeDatabase() {
   try {
     const createTableQuery = `
@@ -40,28 +45,24 @@ async function initializeDatabase() {
         INDEX idx_preco (preco)
       )`;
 
-    await pool.query(createTableQuery);
-    console.log("Banco de dados conectado e tabela 'sapatos' verificada");
+    await poolSapatos.query(createTableQuery);
+    console.log("✅ Banco de sapatos conectado e tabela verificada.");
   } catch (error) {
-    console.error("Erro ao inicializar o banco de dados:", error);
-    throw error;
+    console.error("❌ Erro ao inicializar tabela sapatos:", error);
+    process.exit(1);
   }
 }
 
-// Inicializa o banco de dados
-initializeDatabase().catch((error) => {
-  console.error("Falha na inicialização do banco:", error);
-  process.exit(1);
-});
+initializeDatabase();
 
-// Rota GET para listar sapatos com filtros
+// === ROTAS SAPATOS ===
+
 app.get("/api/sapatos", async (req, res) => {
   try {
     const { marca, tamanho, cor, precoMin, precoMax } = req.query;
     let query = "SELECT * FROM sapatos WHERE 1=1";
     const params = [];
 
-    // Adiciona filtros dinamicamente
     if (marca) {
       query += " AND marca = ?";
       params.push(marca);
@@ -83,10 +84,9 @@ app.get("/api/sapatos", async (req, res) => {
       params.push(Number(precoMax));
     }
 
-    // Ordena por data de cadastro mais recente
     query += " ORDER BY adicionado DESC";
 
-    const [rows] = await pool.query(query, params);
+    const [rows] = await poolSapatos.query(query, params);
     res.json(rows);
   } catch (error) {
     console.error("Erro ao buscar sapatos:", error);
@@ -94,33 +94,23 @@ app.get("/api/sapatos", async (req, res) => {
   }
 });
 
-// Rota POST para cadastrar novo sapato
 app.post("/api/sapatos", async (req, res) => {
   try {
     const { nome, marca, tamanho, cor, preco, estoque = true } = req.body;
 
-    // Validação dos dados
     if (!nome || !marca || !tamanho || !cor || !preco) {
-      return res
-        .status(400)
-        .json({ error: "Todos os campos obrigatórios devem ser preenchidos" });
+      return res.status(400).json({ error: "Preencha todos os campos obrigatórios." });
     }
 
     const query = `
       INSERT INTO sapatos (nome, marca, tamanho, cor, preco, estoque)
       VALUES (?, ?, ?, ?, ?, ?)`;
 
-    const [result] = await pool.query(query, [
-      nome,
-      marca,
-      Number(tamanho),
-      cor,
-      Number(preco),
-      Boolean(estoque),
+    const [result] = await poolSapatos.query(query, [
+      nome, marca, Number(tamanho), cor, Number(preco), Boolean(estoque)
     ]);
 
-    // Retorna o sapato recém-criado
-    const [novoSapato] = await pool.query(
+    const [novoSapato] = await poolSapatos.query(
       "SELECT * FROM sapatos WHERE id = ?",
       [result.insertId]
     );
@@ -128,21 +118,20 @@ app.post("/api/sapatos", async (req, res) => {
     res.status(201).json(novoSapato[0]);
   } catch (error) {
     console.error("Erro ao cadastrar sapato:", error);
-    res.status(500).json({ error: "Erro interno ao cadastrar sapato" });
+    res.status(500).json({ error: "Erro interno ao cadastrar sapato." });
   }
 });
 
-// Rota PUT para atualizar sapato existente
+// === PUT e DELETE sapatos igual ao seu ===
+
 app.put("/api/sapatos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { nome, marca, tamanho, cor, preco, estoque } = req.body;
 
-    // Verifica se o sapato existe
-    const [existing] = await pool.query("SELECT id FROM sapatos WHERE id = ?", [
-      id,
-    ]);
-
+    const [existing] = await poolSapatos.query(
+      "SELECT id FROM sapatos WHERE id = ?", [id]
+    );
     if (!existing.length) {
       return res.status(404).json({ error: "Sapato não encontrado" });
     }
@@ -152,53 +141,79 @@ app.put("/api/sapatos/:id", async (req, res) => {
       SET nome = ?, marca = ?, tamanho = ?, cor = ?, preco = ?, estoque = ?
       WHERE id = ?`;
 
-    await pool.query(query, [
-      nome,
-      marca,
-      Number(tamanho),
-      cor,
-      Number(preco),
-      Boolean(estoque),
-      id,
+    await poolSapatos.query(query, [
+      nome, marca, Number(tamanho), cor, Number(preco), Boolean(estoque), id
     ]);
 
-    // Retorna o sapato atualizado
-    const [updated] = await pool.query("SELECT * FROM sapatos WHERE id = ?", [
-      id,
-    ]);
-
+    const [updated] = await poolSapatos.query("SELECT * FROM sapatos WHERE id = ?", [id]);
     res.json(updated[0]);
   } catch (error) {
     console.error("Erro ao atualizar sapato:", error);
-    res.status(500).json({ error: "Erro interno ao atualizar sapato" });
+    res.status(500).json({ error: "Erro interno ao atualizar sapato." });
   }
 });
 
-// Rota DELETE para remover sapato
 app.delete("/api/sapatos/:id", async (req, res) => {
   try {
     const { id } = req.params;
-
-    // Verifica se o sapato existe
-    const [existing] = await pool.query("SELECT id FROM sapatos WHERE id = ?", [
-      id,
-    ]);
-
+    const [existing] = await poolSapatos.query(
+      "SELECT id FROM sapatos WHERE id = ?", [id]
+    );
     if (!existing.length) {
       return res.status(404).json({ error: "Sapato não encontrado" });
     }
-
-    await pool.query("DELETE FROM sapatos WHERE id = ?", [id]);
+    await poolSapatos.query("DELETE FROM sapatos WHERE id = ?", [id]);
     res.status(204).send();
   } catch (error) {
     console.error("Erro ao deletar sapato:", error);
-    res.status(500).json({ error: "Erro interno ao deletar sapato" });
+    res.status(500).json({ error: "Erro interno ao deletar sapato." });
   }
 });
 
-// Inicia o servidor
+// === ROTAS USUÁRIOS ===
+
+app.post("/api/cadastro", async (req, res) => {
+  try {
+    const {
+      nomeCompleto, cpf, email, celular,
+      endereco, bairro, cidade, cep,
+      complemento, newsletter
+    } = req.body;
+
+    if (!nomeCompleto || !cpf || !email || !celular || !endereco || !bairro || !cidade || !cep) {
+      return res.status(400).json({ error: "Preencha todos os campos obrigatórios." });
+    }
+
+    const query = `
+      INSERT INTO usuarios (
+        nome_completo, cpf, email, celular, endereco, bairro,
+        cidade, cep, complemento, newsletter
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    await poolUsuarios.query(query, [
+      nomeCompleto,
+      cpf.replace(/\D/g, ""),
+      email,
+      celular.replace(/\D/g, ""),
+      endereco,
+      bairro,
+      cidade,
+      cep.replace(/\D/g, ""),
+      complemento || null,
+      newsletter === "1"
+    ]);
+
+    res.status(201).json({ success: true, message: "Usuário cadastrado com sucesso!" });
+  } catch (error) {
+    console.error("Erro ao cadastrar usuário:", error);
+    res.status(500).json({ error: "Erro interno ao cadastrar usuário." });
+  }
+});
+
+// === Iniciar servidor ===
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta: ${PORT}`);
+  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
 });
 
 // Manipulador de erros não capturados

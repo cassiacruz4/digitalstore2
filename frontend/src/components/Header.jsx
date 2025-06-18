@@ -46,9 +46,12 @@ const Header = () => {
             </div>
 
             <div className="col-md-3 col-12 text-center text-md-end mt-2 mt-md-0">
-              <a href="#" className="text-decoration-none text-dark me-2">
+              <Link
+                to="/Cadastro"
+                className="text-decoration-none text-dark me-2"
+              >
                 Cadastre-se
-              </a>
+              </Link>
               <a href="#" className="text-decoration-none text-dark">
                 Entrar
               </a>

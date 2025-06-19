@@ -12,9 +12,9 @@ const ListaSapato = () => {
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>Lista de Sapatos</h2>
+        <h2>Lista de Estoque</h2> 
         <Link to="/sapatos/novo" className="btn btn-primary">
-          Adicionar Novo Sapato
+          Adicionar Novo Item
         </Link>
       </div>
 

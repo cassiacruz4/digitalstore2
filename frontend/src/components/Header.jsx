@@ -1,14 +1,23 @@
 import React from "react";
 import styles from "../styles/Header.module.css";
 import logo from "../assets/imagens/logo.svg";
-import carrinho from "../assets/imagens/icone_carrinho.svg";
 import Buy from "../assets/imagens/Buy.png";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // ✅ Importa o useNavigate
 import { useCart } from "../contexts/CartContext";
 
 const Header = () => {
   const { cartCount } = useCart();
+  const navigate = useNavigate(); // ✅ Inicializa o navigate
+
+  // ✅ Função para deslogar
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+  // ✅ Verifica se o user está logado
+  const isLoggedIn = localStorage.getItem("user");
 
   return (
     <div className={styles.background}>
@@ -22,9 +31,9 @@ const Header = () => {
                 style={{ height: 40, marginRight: 10 }}
               />
               <h1 className="h4 mb-0">
-                <a href="/" className="text-decoration-none text-dark">
+                <Link to="/" className="text-decoration-none text-dark">
                   Digital Store
-                </a>
+                </Link>
               </h1>
             </div>
 
@@ -46,18 +55,15 @@ const Header = () => {
             </div>
 
             <div className="col-md-3 col-12 text-center text-md-end mt-2 mt-md-0">
-              <Link
-                to="/Cadastro"
-                className="text-decoration-none text-dark me-2"
-              >
-                Cadastre-se
-              </Link>
-              <a href="#" className="text-decoration-none text-dark">
-                Entrar
-              </a>
+              {!isLoggedIn && (
+                <Link to="/login" className="text-decoration-none text-dark me-3">
+                  Entrar
+                </Link>
+              )}
+
               <Link
                 to="/Pagamento"
-                className="text-decoration-none text-dark ms-3 position-relative"
+                className="text-decoration-none text-dark position-relative me-3"
               >
                 <img src={Buy} alt="Carrinho" width="24" />
                 {cartCount > 0 && (
@@ -82,6 +88,15 @@ const Header = () => {
                   </span>
                 )}
               </Link>
+
+              {isLoggedIn && (
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-link text-decoration-none text-danger"
+                >
+                  Sair
+                </button>
+              )}
             </div>
           </div>
 
@@ -105,29 +120,38 @@ const Header = () => {
                 >
                   <ul className="navbar-nav">
                     <li className="nav-item">
-                      <Link className="nav-link" to="/" aria-current="page">
+                      <Link className="nav-link" to="/">
                         Home
                       </Link>
                     </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/Produtos">
-                        Produtos
-                      </Link>
-                    </li>
+
                     <li className="nav-item">
                       <Link className="nav-link" to="/sapatos">
-                        {" "}
-                        Sapatos
-                      </Link>{" "}
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/Categorias">
-                        Categorias
+                        Estoque
                       </Link>
                     </li>
+
                     <li className="nav-item">
                       <Link className="nav-link" to="/Compra">
-                        Meus Pedidos
+                        Pedidos
+                      </Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/Cadastro">
+                        Cadastrar Cliente
+                      </Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/clientes">
+                        Listar Clientes
+                      </Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/Pagamento">
+                        Pagamento
                       </Link>
                     </li>
                   </ul>

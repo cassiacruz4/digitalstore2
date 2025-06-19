@@ -33,7 +33,7 @@ export default function Cadastro() {
     setSuccess(false);
 
     try {
-      const response = await fetch("http://localhost:3000/api/cadastro", {
+      const response = await fetch("http://localhost:3000/api/clientes/cadastro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -67,11 +67,11 @@ export default function Cadastro() {
 
   return (
     <div className={styles.formContainer}>
-      <h1 className={styles.title}>Criar Conta</h1>
+      <h1 className={styles.title}>Cadastrar cliente</h1>
 
       {success && (
         <div className={styles.successMessage}>
-          Conta criada com sucesso! Você receberá um email de confirmação em breve.
+          Cadastro realizado com sucesso! Você receberá um email de confirmação em breve.
         </div>
       )}
 
@@ -186,7 +186,7 @@ export default function Cadastro() {
             onChange={handleChange}
           />
           <label className={styles.checkboxLabel}>
-            Quero receber por email ofertas e novidades das lojas da Digital Store.
+            Enviar por email ofertas e novidades das lojas da Digital Store.
           </label>
         </div>
 
@@ -195,7 +195,7 @@ export default function Cadastro() {
           className={styles.submitBtn}
           disabled={loading}
         >
-          {loading ? "Enviando..." : "Criar Conta"}
+          {loading ? "Enviando..." : "Cadastrar"}
         </button>
 
         {loading && <p className={styles.loading}>Processando seu cadastro...</p>}

@@ -2,6 +2,7 @@ import express from "express";
 import mysql from "mysql2/promise";
 import cors from "cors";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
 
 dotenv.config();
 
@@ -19,12 +20,20 @@ const poolSapatos = mysql.createPool({
   database: process.env.DB_SAPATOS_DATABASE,
 });
 
-// === Banco 2: USUÁRIOS ===
+// === Banco 2: USUÁRIOS (CLIENTES) ===
 const poolUsuarios = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USUARIOS_USER,
   password: process.env.DB_USUARIOS_PASSWORD,
   database: process.env.DB_USUARIOS_DATABASE,
+});
+
+// === Banco 3: FUNCIONÁRIOS ===
+const poolFuncionarios = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_FUNCIONARIOS_USER,
+  password: process.env.DB_FUNCIONARIOS_PASSWORD,
+  database: process.env.DB_FUNCIONARIOS_DATABASE,
 });
 
 // === Inicializa tabela sapatos ===
@@ -122,8 +131,6 @@ app.post("/api/sapatos", async (req, res) => {
   }
 });
 
-// === PUT e DELETE sapatos igual ao seu ===
-
 app.put("/api/sapatos/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -170,9 +177,9 @@ app.delete("/api/sapatos/:id", async (req, res) => {
   }
 });
 
-// === ROTAS USUÁRIOS ===
-
-app.post("/api/cadastro", async (req, res) => {
+// === ROTAS CLIENTES ===
+// Cadastro de clientes (no banco `usuarios`)
+app.post("/api/clientes/cadastro", async (req, res) => {
   try {
     const {
       nomeCompleto, cpf, email, celular,
@@ -204,10 +211,86 @@ app.post("/api/cadastro", async (req, res) => {
       newsletter === "1"
     ]);
 
-    res.status(201).json({ success: true, message: "Usuário cadastrado com sucesso!" });
+    res.status(201).json({ success: true, message: "Cliente cadastrado com sucesso!" });
   } catch (error) {
-    console.error("Erro ao cadastrar usuário:", error);
-    res.status(500).json({ error: "Erro interno ao cadastrar usuário." });
+    console.error("Erro ao cadastrar cliente:", error);
+    res.status(500).json({ error: "Erro interno ao cadastrar cliente." });
+  }
+});
+
+// === ROTAS FUNCIONÁRIOS ===
+// Cadastro de funcionários
+app.post("/api/users/cadastro", async (req, res) => {
+  try {
+    const { name, email, password, role } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ error: "Preencha nome, email e senha." });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const query = `
+      INSERT INTO users (name, email, password, role)
+      VALUES (?, ?, ?, ?)
+    `;
+
+    await poolFuncionarios.query(query, [
+      name,
+      email,
+      hashedPassword,
+      role || 'user'
+    ]);
+
+    res.status(201).json({ success: true, message: "Funcionário cadastrado com sucesso!" });
+  } catch (error) {
+    console.error("Erro ao cadastrar funcionário:", error);
+    res.status(500).json({ error: "Erro interno ao cadastrar funcionário." });
+  }
+});
+
+// Login de funcionários
+app.post("/api/users/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: "Preencha email e senha." });
+    }
+
+    const [rows] = await poolFuncionarios.query(
+      "SELECT * FROM users WHERE email = ?", [email]
+    );
+
+    if (rows.length === 0) {
+      return res.status(401).json({ error: "Funcionário não encontrado." });
+    }
+
+    const user = rows[0];
+
+    console.log("Digitada:", password);
+    console.log("No banco:", user.password);
+
+    const isMatch = password === user.password;
+
+    if (!isMatch) {
+      return res.status(401).json({ error: "Senha inválida." });
+    }
+
+    res.json({
+      success: true,
+      message: "Login bem-sucedido",
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
+
+  } catch (error) {
+    console.error("Erro no login:", error);
+    res.status(500).json({ error: "Erro interno no login." });
   }
 });
 
@@ -216,7 +299,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
 });
 
-// Manipulador de erros não capturados
+// Manipulador de erros globais
 process.on("unhandledRejection", (reason, promise) => {
   console.error("Unhandled Rejection at:", promise, "reason:", reason);
 });
@@ -224,4 +307,35 @@ process.on("unhandledRejection", (reason, promise) => {
 process.on("uncaughtException", (error) => {
   console.error("Uncaught Exception:", error);
   process.exit(1);
+});
+
+// Lista de clientes
+app.get("/api/clientes", async (req, res) => {
+  try {
+    const [rows] = await poolUsuarios.query("SELECT * FROM usuarios ORDER BY nome_completo");
+    res.json(rows);
+  } catch (error) {
+    console.error("Erro ao buscar clientes:", error);
+    res.status(500).json({ error: "Erro interno ao buscar clientes." });
+  }
+});
+
+// Rota para excluir cliente
+app.delete("/api/clientes/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [existing] = await poolUsuarios.query(
+      "SELECT id FROM usuarios WHERE id = ?", [id]
+    );
+
+    if (existing.length === 0) {
+      return res.status(404).json({ error: "Cliente não encontrado." });
+    }
+
+    await poolUsuarios.query("DELETE FROM usuarios WHERE id = ?", [id]);
+    res.status(204).send();
+  } catch (error) {
+    console.error("Erro ao excluir cliente:", error);
+    res.status(500).json({ error: "Erro interno ao excluir cliente." });
+  }
 });

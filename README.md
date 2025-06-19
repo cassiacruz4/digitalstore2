@@ -52,29 +52,6 @@ Botão para o funcionário encerrar a sessão com segurança.
 
 ---
 
-## 📂 **Estrutura do Projeto**
-
-digitalstore2/
-├── backend/
-│ ├── index.mjs
-│ ├── models/
-│ ├── routes/
-│ └── scripts/
-├── frontend/
-│ ├── src/
-│ │ ├── pages/
-│ │ ├── components/
-│ │ ├── contexts/
-│ │ └── styles/
-├── .env
-├── package.json
-├── README.md
-└── ...
----
-
-
-## ⚡ **Como Executar Localmente**
-
 ### 1️⃣ Clone o repositório
 ```bash
 git clone https://github.com/cassiacruz4/digitalstore2.git

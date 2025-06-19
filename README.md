@@ -60,4 +60,10 @@ cd digitalstore2
 ✨ Desenvolvido por
 Ana Cássia Cruz Araújo, João Victor e Guilherme como Trabalho Final Projeto Geração Tech 2025.1
 
+📄 Licença
+Este projeto é livre para fins acadêmicos e de aprendizado.
+
+📫 Contato
+Para dúvidas, contribuições ou sugestões, entre em contato pelo email: cassia.cruz4@gmail.com ou abra uma Issue neste repositório.
+
 

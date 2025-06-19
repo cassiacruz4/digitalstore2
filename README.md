@@ -58,6 +58,6 @@ git clone https://github.com/cassiacruz4/digitalstore2.git
 cd digitalstore2
 
 ✨ Desenvolvido por
-Ana Cássia Cruz Araújo, João Victor e Guilher como Trabalho Final do Projeto Geração Tech 2025.1
+Ana Cássia Cruz Araújo, João Victor e Guilherme como Trabalho Final Projeto Geração Tech 2025.1
 
 

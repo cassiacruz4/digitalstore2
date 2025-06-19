@@ -72,6 +72,7 @@ digitalstore2/
 └── ...
 ---
 
+
 ## ⚡ **Como Executar Localmente**
 
 ### 1️⃣ Clone o repositório
